@@ -1,0 +1,16 @@
+{
+  "accounts": [
+    {
+      "account_name": "<your-account>",
+      "host_name": "<your-hostname>"
+    },
+    {
+      "account_name": "<your-account>",
+      "host_name": "<your-hostname>"
+    },
+    {
+      "account_name": "<your-account>",
+      "host_name": "<your-hostname>"
+    }
+  ]
+}
