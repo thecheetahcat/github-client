@@ -1,14 +1,33 @@
-from gh_client import GHClient
-import os
-import json
+from actions import initialize_repository as ir
+import sys
 
 
-with open(f"{os.path.dirname(os.path.abspath(__file__))}/config.json", "r") as config_file:
-    config_data = json.load(config_file)
+def exit_client():
+    print("Thank you.")
+    sys.exit(0)
 
-ACCOUNTS = {account.get("account_name"): account.get("host_name") for account in config_data.get("accounts", [])}
+
+def main():
+    options = {
+        "1": ir.create_new_repository,
+        "2": exit_client,
+        # ... add more options as you create more actions
+    }
+
+    while True:
+        print("\nGitHub Client Menu:")
+        for key, value in options.items():
+            print(f"{key}. {value.__name__.replace('_', ' ').title()}")
+
+        choice = input("\nEnter your choice: ").strip()
+        action = options.get(choice)
+        if action:
+            action()
+        elif choice == "exit":
+            exit_client()
+        else:
+            print("Invalid choice, please try again.")
 
 
-if __name__ == '__main__':
-    client = GHClient(ACCOUNTS)
-    client.menu()
+if __name__ == "__main__":
+    main()

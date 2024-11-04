@@ -1,12 +1,10 @@
-# GitHub Account Manager (GHClient)
+# github-client
 
-This Python-based GitHub Account Manager allows you to easily manage multiple GitHub accounts, switch between them, and create new repositories in specified directories. It interacts with the GitHub CLI (`gh`) and helps automate common GitHub operations.
+github-client utilizes the GitHub CLI (`gh`) to easily manage multiple GitHub accounts and automate common GitHub operations.
 
 ## Features
-- Check current GitHub authentication status.
-- Switch between multiple GitHub accounts.
-- Initialize new repositories in any directory and push them to GitHub.
-- Customize repository visibility (public/private).
+- Initialize new repositories with the correct account author
+- More to come... Including setting up **SSH** keys and adding them to the config file
   
 ## Prerequisites
 This tool is designed for **Linux** and **macOS** systems (although it might work on Windows with adjustments).
@@ -141,35 +139,47 @@ Now your system is set up to use SSH with multiple GitHub accounts, and you can 
 ## Project Setup
 
 1. **Clone the Repository**:
-    Clone this repository to your local machine:
-    ```bash
-    git clone https://github.com/your-username/gh-client.git
-    cd gh-client
-    ```
+Clone this repository to your local machine:
+```bash
+git clone https://github.com/your-username/gh-client.git
+cd gh-client
+```
 
 2. **Edit the Configuration File**:
-    The configuration file (`config.json`) contains your GitHub accounts. Before running the client, open the file and configure it with your account names and host names:
-    
-    ```json
-    {
-      "accounts": [
-        {
-          "account_name": "<your-account>",
-          "host_name": "<your-hostname>"
-        },
-        {
-          "account_name": "<your-account>",
-          "host_name": "<your-hostname>"
-        },
-        {
-          "account_name": "<your-account>",
-          "host_name": "<your-hostname>"
-        }
-      ]
-    }
-    ```
+The configuration file (`config.py`) contains your GitHub accounts. Before running the client, open the file and configure it with your account-names, user-names, emails, and host names:
 
-    Replace `example_config.json` with `config.json` and update `account_name` and `host_name` with your actual GitHub accounts.
+```python
+from typing import Dict
+
+ACCOUNTS_CONFIG = Dict[str, Dict[str, str]]
+
+ACCOUNTS: ACCOUNTS_CONFIG = {
+    "<your-account-name1>":
+        {
+            "user_name": "<your-user-name>",
+            "user_email": "<your-email-address>",
+            "host_name": "<your-ssh-config-hostname>"
+        },
+    "<your-account-name2>":
+        {
+            "user_name": "<your-user-name>",
+            "user_email": "<your-email-address>",
+            "host_name": "<your-ssh-config-hostname>"
+        },
+    "<your-account-name3>":
+        {
+            "user_name": "<your-user-name>",
+            "user_email": "<your-email-address>",
+            "host_name": "<your-ssh-config-hostname>"
+        },
+    # ... you may add more accounts here
+}
+```
+
+Replace `example_config.py` with `config.py` and update `your-account-name`, `your-user-name`, `your-email-address` and `your-ssh-config-hostname` with your actual GitHub accounts.
+
+3. **Requirements**:
+There are currently no requirements to install. 
 
 ## Usage
 
@@ -182,11 +192,9 @@ python3 main.py
 ### Menu Options
 The menu will guide you through the available options:
 
-1. **Check status**: Displays the currently authenticated GitHub accounts and statuses.
-2. **Login**: Initiates a login sequence for GitHub accounts via the GitHub CLI.
-3. **Activate account**: Allows you to switch between the GitHub accounts specified in the configuration file.
-4. **Create new repository**: Initializes a Git repository in a specified directory, creates a new repository on GitHub, and pushes the local repository to GitHub.
-5. **Quit**: Exits the program.
+1. **Create new repository**: Initializes a Git repository in a specified directory, assigns the correct author, creates a new repository, and pushes the local repository to GitHub.
+2. **Exit Client**: Exits the program.
+... More to come
 
 ### Creating a Repository
 When choosing the option to create a new repository, you will be prompted to:
@@ -206,6 +214,3 @@ If you enter invalid input or encounter errors (such as a directory not existing
 
 ## License
 This project is open-source under the MIT License.
-
-----
-### Updated local commit author to cheetah cat...
