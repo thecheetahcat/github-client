@@ -23,7 +23,9 @@ def _choose_account(entries: int = 5) -> Dict[str, str]:
     for entry in range(entries):
         user_account = input("Enter your GitHub account: ")
         if user_account in ACCOUNTS.keys():
-            return ACCOUNTS[user_account]
+            account = ACCOUNTS[user_account]
+            print("Account Selected:", account)
+            return account
         else:
             tries -= 1
             print(f"Invalid account.\nPlease try again. Attempts remaining: {tries}\n")
